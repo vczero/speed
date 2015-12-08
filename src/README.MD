@@ -1,0 +1,1 @@
+tmod ./ui-src --output ./ui-build --type commonjs
