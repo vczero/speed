@@ -5,16 +5,16 @@
 
 window.Speed = window.Speed || {};
 
-(function(window, undefined) {
+(function (window, undefined) {
 
-	//初始化框架基本信息
-	//@name: Speed
-	//@author: vczero
-	//Speed需要挂载的静态变量和方法
-	Speed = window.Speed;
-	Speed.name = 'Speed-SAP';
-	Speed.author = 'vczero';
-	Speed.version = '0.1';
+  //初始化框架基本信息
+  //@name: Speed
+  //@author: vczero
+  //Speed需要挂载的静态变量和方法
+  Speed = window.Speed;
+  Speed.name = 'Speed-SAP';
+  Speed.author = 'vczero';
+  Speed.version = '0.1';
 
   //框架模块加载目录，默认，会动态获取
   Speed.dir = 'src/';
@@ -45,7 +45,7 @@ window.Speed = window.Speed || {};
 
 
   //获取含有Hash的URL，这块需要慎重，兼容部分浏览器
-  Speed.getLocationHref = function(doc) {
+  Speed.getLocationHref = function (doc) {
     doc = doc || document;
 
     //大多数情况这样是OK的
@@ -69,56 +69,56 @@ window.Speed = window.Speed || {};
   };
 
   //通过URL获取hash值
-  Speed.getHashByUrl = function(url){
+  Speed.getHashByUrl = function (url) {
     var newURL = url || Speed.getLocationHref(document);
     var hash = String(newURL).replace(/([^#]*)#?([^#]*)#?(.*)/, '$2');
-    hash =  decodeURIComponent(hash.replace(/[^#]*#/,'').replace(/#.*/, ''));
+    hash = decodeURIComponent(hash.replace(/[^#]*#/, '').replace(/#.*/, ''));
     return hash;
   };
 
 
-	//创建script标签并添加到head
-	function loadScript(opts, callback) {
-		var script = document.createElement('script');
-		script.src = opts.url;
-		script.charset = opts.charset || 'utf-8';
-		script.defer = true;
-		script.async = true;
-		document.head.appendChild(script);
-		script.onload = function() {
-			script.onload = script.onreadystatechange = script.onerror = null;
-			script = null;
-			callback();
-		};
-	}
-	
-	//获取目录
-	function getDir(){
-		var scripts = document.getElementsByTagName('script') || [];
-		var reg = /speed.js$/ig;
-		for (var i = 0; i < scripts.length; i++) {
+  //创建script标签并添加到head
+  function loadScript(opts, callback) {
+    var script = document.createElement('script');
+    script.src = opts.url;
+    script.charset = opts.charset || 'utf-8';
+    script.defer = true;
+    script.async = true;
+    document.head.appendChild(script);
+    script.onload = function () {
+      script.onload = script.onreadystatechange = script.onerror = null;
+      script = null;
+      callback();
+    };
+  }
+
+  //获取目录
+  function getDir() {
+    var scripts = document.getElementsByTagName('script') || [];
+    var reg = /speed.js$/ig;
+    for (var i = 0; i < scripts.length; i++) {
       var src = scripts[i].getAttribute('src');
       if (src && reg.test(src)) {
         Speed.dir = src.replace(reg, '');
       }
       var baseDir = scripts[i].getAttribute('base_dir');
-      if(baseDir){
+      if (baseDir) {
         Speed.moduleDir = baseDir;
       }
     }
-	}
-	
-	getDir();
+  }
 
-	//加载require和入口文件
-	loadScript({url: Speed.dir + '3lib/require.js'}, function(){
-		var config = [Speed.dir + 'config'];
-		require(config, function(){
-			var entrance = ['appInit'];
-			require(entrance, function(){
-				//TODO
-			});
-		});
-	});
+  getDir();
+
+  //加载require和入口文件
+  loadScript({url: Speed.dir + '3lib/require.js'}, function () {
+    var config = [Speed.dir + 'config'];
+    require(config, function () {
+      var entrance = ['appInit'];
+      require(entrance, function () {
+        //TODO
+      });
+    });
+  });
 
 })(window);
