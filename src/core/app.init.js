@@ -8,7 +8,8 @@ define(['$', 'text!src/core/viewport.html', 'FastClick'], function($, html, FC){
   var loadModule = function(){
     var newUrl = Speed.getLocationHref(document);
     var newHash = Speed.getHashByUrl(newUrl);
-
+    if(!newHash) return;
+    newHash = newHash.replace(/!/, '');
     //解析模块
     //这块需要约定法则，那就是/module/page?param=中欧&time=2015
     var moduleStr = newHash.split('?')[0];
