@@ -1,6 +1,6 @@
 
 
-define(['$', 'text', 'text!src/core/viewport.html', 'FastClick'], function($, text, html, FC){
+define(['$', 'text!src/core/viewport.html', 'FastClick'], function($, html, FC){
 
   FC(document.body);
 
@@ -28,10 +28,8 @@ define(['$', 'text', 'text!src/core/viewport.html', 'FastClick'], function($, te
               modules[i] = path + modules[i];
             }
             //加载功能模块
-            console.log(modules);
             require(modules, function(){
               var args = Array.prototype.slice.call(arguments, 0);
-              console.log(args);
               for(var i in args){
                 args[i].show();
               }
